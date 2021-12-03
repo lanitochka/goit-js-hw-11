@@ -4,6 +4,18 @@ import Notiflix from 'notiflix';
 import fetchImages from './js/fetchImages';
 import LoadMoreBtn from './js/load-more-btn';
 
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
+
+console.log(SimpleLightbox);
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  captionPosition: 'bottom'
+});
+
 
 const loadMoreBtn = new LoadMoreBtn({
   selector: '[data-action="load-more"]',
@@ -26,6 +38,7 @@ function onSearch(e) {
   e.preventDefault();
   page = 1;
   clearGalleryContainer();
+
 
 
   searchImages = e.currentTarget.elements.searchQuery.value.trim();
@@ -61,11 +74,15 @@ function onSearch(e) {
       if (foundImages.totalHits < 40) {
         Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
         renderImageCard(foundImages);
+        lightbox.refresh();
         loadMoreBtn.hide();
+
         return;
       }
 
       renderImageCard(foundImages);
+      lightbox.refresh();
+      scrollGallery();
       loadMoreBtn.enable();
 
     });
@@ -86,13 +103,17 @@ function onLoadMore() {
       console.log('images:', images);
 
       loadMoreBtn.enable();
-      // loadMoreBtn.show();
+
+      lightbox.refresh();
+      scrollGallery();
 
       if (images.hits.length < 40) {
         Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
         loadMoreBtn.hide();
+        //   lightbox.refresh();
         return;
       }
+
     })
 
 }
@@ -105,12 +126,12 @@ function clearGalleryContainer() {
 
 function renderImageCard(images) {
 
-  // console.log('image:', images);
-
   const card = images.hits.map(image => {
 
     return `<div class="photo-card">
-        <img src=${image.webformatURL} alt=${image.tags} loading="lazy" />
+     <a "gallery__item" href="${image.largeImageURL}">
+        <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+         </a>
         <div class="info">
             <p class="info-item">
             <b>Likes:${image.likes}</b>
@@ -131,4 +152,18 @@ function renderImageCard(images) {
 
   galleryContainer.insertAdjacentHTML('beforeend', card);
 
+}
+
+
+function scrollGallery() {
+  const {
+    height: cardHeight
+  } = document
+    .querySelector(".gallery")
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 3,
+    behavior: "smooth",
+  });
 }
