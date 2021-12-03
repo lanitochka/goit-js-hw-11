@@ -40,7 +40,6 @@ function onSearch(e) {
 
 
   searchImages = e.currentTarget.elements.searchQuery.value.trim();
-//   console.log('searchImages', searchImages);
 
   if (searchImages === '') {
     Notiflix.Notify.failure("Please enter something.");
@@ -53,10 +52,6 @@ function onSearch(e) {
 
   fetchImages(searchImages, page)
     .then(foundImages => {
-
-    //   console.log('foundImages.hits', foundImages.hits);
-    //   console.log('foundImages', foundImages);
-
 
       if (foundImages.hits.length === 0) {
         Notiflix.Notify.warning("Sorry, there are no images matching your search query. Please try again.");
@@ -74,7 +69,6 @@ function onSearch(e) {
         renderImageCard(foundImages);
         lightbox.refresh();
         loadMoreBtn.hide();
-
         return;
       }
 
@@ -82,7 +76,6 @@ function onSearch(e) {
       lightbox.refresh();
       scrollGallery();
       loadMoreBtn.enable();
-
     });
 
 }
@@ -96,11 +89,9 @@ function onLoadMore() {
   fetchImages(searchImages, page)
 
     .then(images => {
-      renderImageCard(images)
-    //   console.log('images:', images);
+      renderImageCard(images);
 
       loadMoreBtn.enable();
-
       lightbox.refresh();
       scrollGallery();
 
@@ -109,9 +100,7 @@ function onLoadMore() {
         loadMoreBtn.hide();
         return;
       }
-
     })
-
 }
 
 

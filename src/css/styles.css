@@ -61,14 +61,11 @@ input::placeholder {
   color: rgba(77, 77, 77, 0.6);
 }
 
-
 .search-form {
   padding: 30px;
   display: flex;
   justify-content: center;
 }
-
-
 
 .button {
   display: block;
