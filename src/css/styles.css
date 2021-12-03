@@ -1,6 +1,3 @@
-/* * {
-  box-sizing: border-box;
-} */
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -10,20 +7,13 @@ body {
   background-color: #fafafa;
   color: #000000;
   line-height: 1.5;
-  padding: 30px;
-  padding-left: 300px;
-  padding-right: 300px;
+  padding: 0;
+  margin: 0;
+
 }
 
-/* #search-box {
-  font: inherit;
-  padding: 8px;
-  max-width: 320px;
-  margin-bottom: 16px;
-} */
 
-
-form button{
+form button {
   display: inline-block;
   border-radius: 5px;
   padding: 7px 25px;
@@ -72,33 +62,12 @@ input::placeholder {
 }
 
 
-.search-form{
+.search-form {
+  padding: 30px;
   display: flex;
   justify-content: center;
 }
 
-
-/* .load-more {
-
-  display: block;
-  margin: 20px auto;
-
-  border-radius: 5px;
-  padding: 5px 20px;
-  min-width: 100px;
-
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 30px;
-  letter-spacing: 0.06em;
-  text-align: center;
-  color: #FFFFFF;
-  background-color: #00b0bd;
-  border: none;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-} */
 
 
 .button {
@@ -111,6 +80,7 @@ input::placeholder {
   color: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
+  margin-bottom: 30px;
 
   padding: 10px 20px;
   min-width: 100px;
@@ -124,12 +94,13 @@ input::placeholder {
   display: none;
 }
 
-
-
 /* ============================================= */
 
 .gallery {
-  margin-top: 80px;
+  max-width: 1200px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 30px auto 30px;
   display: flex;
   flex-flow: row wrap;
 }
@@ -153,13 +124,13 @@ input::placeholder {
 }
 
 .gallery .photo-card img {
-  max-width: 200px;
-  max-height: 200px;
-  height: auto;
-  transform: translate(-50%, -70%) scale(1.1);
+  max-width: 500px;
+  transform: translate(-50%, -50%) scale(1.1);
   top: 50%;
   left: 50%;
   position: relative;
+  width: 100%;
+  height: auto;
 }
 
 .gallery .photo-card .info {
@@ -167,7 +138,7 @@ input::placeholder {
   margin: 5px auto;
   display: flex;
   flex-flow: row nowrap;
-  font-size: smaller;
+  font-size: 11px;
   padding: 0 10px;
   justify-content: space-between;
 }

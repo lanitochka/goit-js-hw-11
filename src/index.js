@@ -8,8 +8,6 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 
-console.log(SimpleLightbox);
-
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
@@ -21,6 +19,7 @@ const loadMoreBtn = new LoadMoreBtn({
   selector: '[data-action="load-more"]',
   hidden: true,
 });
+
 
 const searchForm = document.querySelector('.search-form');
 const galleryContainer = document.querySelector('.gallery');
@@ -40,9 +39,8 @@ function onSearch(e) {
   clearGalleryContainer();
 
 
-
   searchImages = e.currentTarget.elements.searchQuery.value.trim();
-  console.log('searchQuery', searchImages);
+//   console.log('searchImages', searchImages);
 
   if (searchImages === '') {
     Notiflix.Notify.failure("Please enter something.");
@@ -56,8 +54,8 @@ function onSearch(e) {
   fetchImages(searchImages, page)
     .then(foundImages => {
 
-      console.log('foundImages.hits', foundImages.hits);
-      console.log('foundImages', foundImages);
+    //   console.log('foundImages.hits', foundImages.hits);
+    //   console.log('foundImages', foundImages);
 
 
       if (foundImages.hits.length === 0) {
@@ -93,14 +91,13 @@ function onSearch(e) {
 function onLoadMore() {
 
   loadMoreBtn.disable();
-  // loadMoreBtn.hide();
 
   page += 1;
   fetchImages(searchImages, page)
 
     .then(images => {
       renderImageCard(images)
-      console.log('images:', images);
+    //   console.log('images:', images);
 
       loadMoreBtn.enable();
 
@@ -110,7 +107,6 @@ function onLoadMore() {
       if (images.hits.length < 40) {
         Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
         loadMoreBtn.hide();
-        //   lightbox.refresh();
         return;
       }
 
@@ -129,21 +125,23 @@ function renderImageCard(images) {
   const card = images.hits.map(image => {
 
     return `<div class="photo-card">
-     <a "gallery__item" href="${image.largeImageURL}">
-        <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
-         </a>
+     <a class="gallery__item" href="${image.largeImageURL}"><img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" /></a>
         <div class="info">
             <p class="info-item">
-            <b>Likes:${image.likes}</b>
+                <b>Likes:</b>
+                ${image.likes}
             </p>
             <p class="info-item">
-            <b>Views:${image.views}</b>
+                <b>Views:</b>
+                ${image.views}
             </p>
             <p class="info-item">
-            <b>Comments:${image.comments}</b>
+                <b>Comments:</b>
+                ${image.comments}
             </p>
             <p class="info-item">
-            <b>Downloads:${image.downloads}</b>
+                <b>Downloads:</b>
+                ${image.downloads}
             </p>
         </div>
         </div>`
